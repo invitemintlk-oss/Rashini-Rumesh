@@ -1,20 +1,20 @@
 import { motion } from 'motion/react';
-import { Heart, Church, Clock } from 'lucide-react';
+import { Heart, Sparkles, Clock } from 'lucide-react';
 
 const events = [
   {
-    time: '9.30 AM',
-    title: 'Church Ceremony',
-    description: "Our holy wedding ceremony at St. Anne's Church, Boralessa, where we exchange our vows before God and our loved ones.",
-    icon: Church,
-    color: 'from-blue-500 to-blue-600'
-  },
-  {
-    time: '11.15 AM',
+    time: '10.15 AM',
     title: 'Poruwa Ceremony',
-    description: 'The traditional and sacred Poruwa ceremony at Sewwandi Grand Castore, Kirimatiyana, followed by the wedding celebration.',
+    description: 'The traditional and sacred Poruwa ceremony at River Green Resort, Panadura.',
     icon: Heart,
     color: 'from-rose-400 to-rose-500'
+  },
+  {
+    time: '11.00 AM - 4.00 PM',
+    title: 'Wedding Celebration',
+    description: 'Celebrate with us at River Green Resort, Panadura.',
+    icon: Sparkles,
+    color: 'from-emerald-600 to-emerald-700'
   },
 ];
 

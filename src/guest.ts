@@ -1,8 +1,8 @@
 // Shared wedding + guest-name helpers used by the invitation and the /admin link generator.
 
 export const WEDDING = {
-  groomName: 'Chrishal',
-  brideName: 'Chathurika',
+  groomName: 'Rumesh',
+  brideName: 'Rashini',
 };
 
 export const PREFIXES = [
@@ -57,7 +57,7 @@ ${link}
 Your presence would truly mean the world to us, and we would be honored to celebrate this beautiful moment together.
 
 With love,
-❤️ ${WEDDING.groomName} & ${WEDDING.brideName}`;
+❤️ ${WEDDING.brideName} & ${WEDDING.groomName}`;
 }
 
 /** Read the guest display name from the current URL (/Sanjaya?p=mr → "Mr. Sanjaya"). */

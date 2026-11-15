@@ -155,8 +155,9 @@ export default function App() {
             transition={{ delay: 0.8 }}
             className="text-xs sm:text-sm text-gray-500 font-serif mb-8 uppercase tracking-widest leading-relaxed"
           >
-            Son of Mr. C. C. Fernando & Mrs. P. H. Fernando <br className="hidden sm:block" />
-            Daughter of Mr. R. W. Sirisumana & Mrs. M. M. Rani
+            Mr. Russel Ferdinand &amp; Mrs. Sanjeewani Wickremasinghe <br />
+            together with <br />
+            Mr. Senevirathna &amp; Mrs. Anusha Padmalatha
           </motion.div>
 
           {/* Names */}
@@ -166,7 +167,7 @@ export default function App() {
             transition={{ delay: 0.9 }}
             className="text-4xl sm:text-6xl md:text-8xl font-serif text-[#4a5d23] mb-6 leading-tight"
           >
-            Chrishal
+            Rashini
             <motion.span
               className="inline-block mx-2 sm:mx-6 text-[#7d8f4e]"
               animate={{ rotate: [0, 5, -5, 0] }}
@@ -174,7 +175,7 @@ export default function App() {
             >
               &
             </motion.span>
-            Chathurika
+            Rumesh
           </motion.h1>
 
           <motion.div
@@ -185,15 +186,17 @@ export default function App() {
           >
             {guestName ? (
               <>
-                We cordially invite{' '}
+                Warmly request the honour of the presence of
+                <br />
                 <span className="not-italic font-semibold text-[#4a5d23] text-lg sm:text-xl">{guestName}</span>
                 <br />
-                to celebrate our special day with us.
+                to celebrate the marriage of their loving children
               </>
             ) : (
               <>
-                Request the pleasure of Mr. & Mrs. / Miss <br />
-                To grace the occasion of our wedding celebration
+                Warmly request the honour of the presence of <br />
+                Mr. &amp; Mrs. / Miss <br />
+                to celebrate the marriage of their loving children
               </>
             )}
           </motion.div>
@@ -213,7 +216,7 @@ export default function App() {
             className="text-base sm:text-xl md:text-2xl text-gray-700 font-serif max-w-2xl mx-auto leading-relaxed px-2 mb-10"
           >
             On <br />
-            <span className="text-[#4a5d23] font-bold">Thursday, December 10 | 2026</span>
+            <span className="text-[#4a5d23] font-bold">Friday, January 15 | 2027</span>
           </motion.p>
 
 
@@ -301,8 +304,8 @@ export default function App() {
                 <Calendar className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-serif text-[#4a5d23] mb-3">Date</h3>
-              <p className="text-xl text-gray-700 font-serif">December 10, 2026</p>
-              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Thursday</p>
+              <p className="text-xl text-gray-700 font-serif">January 15, 2027</p>
+              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Friday</p>
             </motion.div>
 
             <motion.div
@@ -320,10 +323,10 @@ export default function App() {
                 <Clock className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-serif text-[#4a5d23] mb-3">Time</h3>
-              <p className="text-xl text-gray-700 font-serif">9:30 AM</p>
-              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Church Ceremony</p>
-              <p className="text-xl text-gray-700 font-serif mt-4">11:15 AM</p>
+              <p className="text-xl text-gray-700 font-serif">10:15 AM</p>
               <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Poruwa Ceremony</p>
+              <p className="text-xl text-gray-700 font-serif mt-4">11:00 AM - 4:00 PM</p>
+              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Wedding Celebration</p>
             </motion.div>
 
             <motion.div
@@ -341,10 +344,8 @@ export default function App() {
                 <MapPin className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-serif text-[#4a5d23] mb-3">Venue</h3>
-              <p className="text-xl text-gray-700 font-serif">St. Anne's Church</p>
-              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Boralessa</p>
-              <p className="text-xl text-gray-700 font-serif mt-4">Sewwandi Grand Castore</p>
-              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Kirimatiyana</p>
+              <p className="text-xl text-gray-700 font-serif">River Green Resort</p>
+              <p className="text-sm text-gray-500 mt-2 uppercase tracking-widest">Panadura</p>
             </motion.div>
           </div>
         </div>
@@ -363,7 +364,7 @@ export default function App() {
               Counting Down
             </h2>
             <p className="text-xl text-gray-600 font-serif">
-              Until the marriage of Chrishal & Chathurika
+              Until the marriage of Rashini & Rumesh
             </p>
           </motion.div>
 
@@ -384,7 +385,7 @@ export default function App() {
               Event Timeline
             </h2>
             <p className="text-xl text-gray-600 font-serif lowercase italic">
-              [CHURCH CEREMONY AT 9.30AM · PORUWA CEREMONY AT 11.15AM]
+              [poruwa ceremony at 10.15 am · celebration 11.00 am - 4.00 pm]
             </p>
           </motion.div>
 
@@ -405,23 +406,17 @@ export default function App() {
               Location
             </h2>
             <p className="text-xl text-gray-600 font-serif">
-              Church Ceremony &amp; Poruwa Ceremony
+              River Green Resort, Panadura
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid gap-8 max-w-xl mx-auto">
             {[
               {
-                label: 'Church Ceremony · 9:30 AM',
-                name: "St. Anne's Church",
-                place: 'Boralessa',
-                map: "https://www.google.com/maps/search/?api=1&query=St.+Anne's+Church+Boralessa",
-              },
-              {
-                label: 'Poruwa Ceremony · 11:15 AM',
-                name: 'Sewwandi Grand Castore',
-                place: 'Kirimatiyana',
-                map: 'https://www.google.com/maps/search/?api=1&query=Sewwandi+Grand+Castore+Kirimatiyana',
+                label: 'Poruwa 10:15 AM · Celebration 11:00 AM - 4:00 PM',
+                name: 'River Green Resort',
+                place: 'Panadura',
+                map: 'https://www.google.com/maps/search/?api=1&query=River+Green+Resort+Panadura',
               },
             ].map((venue) => (
               <motion.div
@@ -480,10 +475,14 @@ export default function App() {
             ))}
           </div>
 
-          <div className="flex justify-center mt-10">
-            <a href="tel:0773830409" className="flex items-center gap-2 text-gray-600 font-serif hover:text-[#4a5d23]">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 mt-10">
+            <a href="tel:0761634344" className="flex items-center gap-2 text-gray-600 font-serif hover:text-[#4a5d23]">
               <Phone className="w-4 h-4 text-[#7d8f4e]" />
-              <span>RSVP: Christi - 0773830409</span>
+              <span>RSVP: Rashini - 076 163 4344</span>
+            </a>
+            <a href="tel:0712005612" className="flex items-center gap-2 text-gray-600 font-serif hover:text-[#4a5d23]">
+              <Phone className="w-4 h-4 text-[#7d8f4e]" />
+              <span>RSVP: Rumesh - 071 200 5612</span>
             </a>
           </div>
         </div>
@@ -502,7 +501,9 @@ export default function App() {
               RSVP
             </h2>
             <p className="text-xl text-gray-600 font-serif">
-              Christi - <a href="tel:0773830409" className="text-[#4a5d23] hover:text-[#7d8f4e]">0773830409</a>
+              Rashini - <a href="tel:0761634344" className="text-[#4a5d23] hover:text-[#7d8f4e]">076 163 4344</a>
+              <span className="mx-3 text-[#7d8f4e]">|</span>
+              Rumesh - <a href="tel:0712005612" className="text-[#4a5d23] hover:text-[#7d8f4e]">071 200 5612</a>
             </p>
           </motion.div>
 
@@ -523,7 +524,7 @@ export default function App() {
               Blessings & Wishes
             </h2>
             <p className="text-xl text-gray-600 font-serif">
-              Share your love and blessings with Chrishal & Chathurika
+              Share your love and blessings with Rashini & Rumesh
             </p>
           </motion.div>
 
@@ -554,11 +555,11 @@ export default function App() {
             </div>
 
             <div className="text-3xl font-serif text-[#4a5d23] mb-2 uppercase tracking-[0.2em]">
-              Chrishal & Chathurika
+              Rashini & Rumesh
             </div>
 
             <p className="text-gray-500 font-serif tracking-widest text-sm uppercase">
-              December 10, 2026 • Boralessa & Kirimatiyana
+              January 15, 2027 • River Green Resort, Panadura
             </p>
           </motion.div>
 

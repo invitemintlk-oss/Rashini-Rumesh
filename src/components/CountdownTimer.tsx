@@ -10,8 +10,8 @@ export function CountdownTimer() {
   }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    // December 10, 2026
-    const targetDate = new Date('2026-12-10T09:30:00').getTime();
+    // January 15, 2027 - Poruwa ceremony
+    const targetDate = new Date('2027-01-15T10:15:00').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
