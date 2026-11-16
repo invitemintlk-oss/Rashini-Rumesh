@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Send } from 'lucide-react';
 import { toast } from 'sonner';
 import { readGuestFromLocation } from '../guest';
+import { sendToSheet } from '../sheets';
 
 interface RSVPFormData {
   name: string;
@@ -15,35 +16,28 @@ interface RSVPFormData {
 
 export function RSVPForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Name from the personal invite link (e.g. "Mr. & Mrs. Perera"), saved with the RSVP so you can
+  // see which invitation each reply came from even if the guest edits the name field.
+  const [invitedAs] = useState(() => readGuestFromLocation());
   const { register, handleSubmit, reset, formState: { errors } } = useForm<RSVPFormData>({
-    defaultValues: { name: readGuestFromLocation() },
+    defaultValues: { name: invitedAs },
   });
-  const scriptUrl = import.meta.env.VITE_GOOGLE_APPS_SCRIPT_URL as string | undefined;
 
   const onSubmit = async (data: RSVPFormData) => {
     setIsSubmitting(true);
 
     try {
-      if (!scriptUrl) {
-        throw new Error('Google Apps Script URL is not configured.');
-      }
-
-      const payload = new FormData();
-      payload.append('sheet', 'RSVP');
-      payload.append('name', data.name);
-      payload.append('phone', data.phone);
-      payload.append('guests', data.guests);
-      payload.append('attendance', data.attendance);
-      payload.append('dietaryRestrictions', data.dietaryRestrictions || '');
-
-      await fetch(scriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: payload,
+      await sendToSheet('RSVP', {
+        name: data.name.trim(),
+        phone: data.phone.trim(),
+        guests: data.guests,
+        attendance: data.attendance === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline',
+        dietaryRestrictions: (data.dietaryRestrictions || '').trim(),
+        invitedAs,
       });
 
       toast.success('Thank you! Your RSVP has been received.');
-      reset();
+      reset({ name: invitedAs, phone: '', guests: '', dietaryRestrictions: '' });
     } catch (error) {
       console.error('RSVP submit failed:', error);
       toast.error('Could not send RSVP. Please try again.');

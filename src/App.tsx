@@ -8,7 +8,6 @@ import {
   Music,
   VolumeX,
   Sparkles,
-  Phone,
   Mail
 } from 'lucide-react';
 import { Toaster } from 'sonner';
@@ -19,8 +18,13 @@ import { EventTimeline } from './components/EventTimeline';
 import { RSVPForm } from './components/RSVPForm';
 import { BlessingForm } from './components/BlessingForm';
 import { FloatingParticles } from './components/FloatingParticles';
-import { ImageWithFallback } from './components/ImageWithFallback';
 import { readGuestFromLocation } from './guest';
+
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.9, ease: [0.2, 0.8, 0.2, 1] as const },
+});
 
 export default function App() {
   const [guestName] = useState(() => readGuestFromLocation());
@@ -32,7 +36,7 @@ export default function App() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
   useEffect(() => {
-    audioRef.current = new Audio('/paulyudin-wedding-485932.mp3');
+    audioRef.current = new Audio('/beautiful-in-white.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.3;
     audioRef.current.preload = 'auto';
@@ -99,143 +103,143 @@ export default function App() {
       </motion.div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[100svh] flex items-center justify-center px-4">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <ImageWithFallback
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Hero Background"
-            className="w-full h-full object-cover blur-[2px]"
+      {/* exactly one screen tall; content is sized to sit in the white space between the flower borders */}
+      <section className="relative min-h-[100svh] flex items-center justify-center px-4 pt-[17svh] pb-[19svh] md:pt-[19vh] md:pb-[20vh]">
+        {/* Floral frame background: portrait image covers on phones; on wider screens it repeats
+            sideways at full height so the top & bottom flower borders are never cropped away */}
+        <div
+          className="absolute inset-0 z-0 bg-white bg-center bg-cover bg-no-repeat md:bg-[length:auto_100%] md:bg-repeat-x"
+          style={{ backgroundImage: 'url("/download%20(2).png")' }}
+        />
+
+        <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
+          {/* soft white glow so text stays crisp over the floral frame */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[85%] w-[110%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.92),rgba(255,255,255,0.55)_55%,transparent_75%)] blur-2xl"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-white/95" />
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="relative z-10 text-center max-w-4xl mx-auto"
-        >
-          {/* Decorative Top */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, type: 'spring' }}
-            className="mb-8 flex justify-center"
-          >
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#7d8f4e] to-[#556b2f] flex items-center justify-center">
-              <Heart className="w-10 h-10 text-white" fill="white" />
-            </div>
-          </motion.div>
+          <div className="relative">
+            {/* Pre-title */}
+            <motion.div {...rise(0.5)} className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-5">
+              <span className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent to-[#b8892d]" />
+              <span className="font-cinzel text-[11px] sm:text-xs tracking-[0.45em] pl-[0.45em] text-[#1f4a32] uppercase">
+                Promise Of Love
+              </span>
+              <span className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-[#b8892d]" />
+            </motion.div>
 
-          {/* Pre-title */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="text-[#7d8f4e] text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.5em] font-serif mb-6 uppercase"
-          >
-            Promise Of Love
-          </motion.div>
-
-          {/* Verse */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.75 }}
-            className="text-base sm:text-lg text-[#4a5d23]/80 font-serif italic mb-6"
-          >
-            "Thus from that time on they are no longer two, but one"
-          </motion.p>
-
-          {/* Families */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-xs sm:text-sm text-gray-500 font-serif mb-8 uppercase tracking-widest leading-relaxed"
-          >
-            Mr. Russel Ferdinand &amp; Mrs. Sanjeewani Wickremasinghe <br />
-            together with <br />
-            Mr. Senevirathna &amp; Mrs. Anusha Padmalatha
-          </motion.div>
-
-          {/* Names */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="text-4xl sm:text-6xl md:text-8xl font-serif text-[#4a5d23] mb-6 leading-tight"
-          >
-            Rashini
-            <motion.span
-              className="inline-block mx-2 sm:mx-6 text-[#7d8f4e]"
-              animate={{ rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
+            {/* Verse */}
+            <motion.p
+              {...rise(0.65)}
+              className="relative mx-auto w-fit max-w-xl px-7 mb-4 sm:mb-6 font-serif italic text-[15px] sm:text-xl leading-snug text-[#1f4a32]/80"
             >
-              &
-            </motion.span>
-            Rumesh
-          </motion.h1>
+              <span aria-hidden="true" className="absolute -left-1 sm:left-0 -top-2 font-script text-4xl sm:text-5xl leading-none text-[#b8892d]/70">&ldquo;</span>
+              Thus from that time on they are no longer two, but one
+              <span aria-hidden="true" className="absolute -right-1 sm:right-0 -bottom-5 font-script text-4xl sm:text-5xl leading-none text-[#b8892d]/70">&rdquo;</span>
+            </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="text-sm sm:text-base text-gray-600 font-serif mb-8 italic"
-          >
-            {guestName ? (
-              <>
-                Warmly request the honour of the presence of
-                <br />
-                <span className="not-italic font-semibold text-[#4a5d23] text-lg sm:text-xl">{guestName}</span>
-                <br />
-                to celebrate the marriage of their loving children
-              </>
-            ) : (
-              <>
-                Warmly request the honour of the presence of <br />
-                Mr. &amp; Mrs. / Miss <br />
-                to celebrate the marriage of their loving children
-              </>
-            )}
-          </motion.div>
+            {/* Families */}
+            <motion.div
+              {...rise(0.8)}
+              className="mb-2 sm:mb-3 font-serif uppercase text-[10px] sm:text-[13px] tracking-[0.14em] sm:tracking-[0.2em] leading-relaxed text-stone-600"
+            >
+              <p>Mr. Russel Ferdinand &amp; Mrs. Sanjeewani Wickremasinghe</p>
+              <p className="font-script normal-case tracking-normal text-xl sm:text-3xl text-[#b8892d] my-0.5 sm:my-1">together with</p>
+              <p>Mr. Senevirathna &amp; Mrs. Anusha Padmalatha</p>
+            </motion.div>
 
-          {/* Decorative Line */}
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="w-24 h-px bg-gradient-to-r from-transparent to-[#7d8f4e]" />
-            <Sparkles className="w-5 h-5 text-[#7d8f4e]" />
-            <div className="w-24 h-px bg-gradient-to-l from-transparent to-[#7d8f4e]" />
+            {/* Names */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ delay: 1, duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
+              className="font-script font-normal leading-[1.05] text-[2.9rem] sm:text-[4.6rem] md:text-[5.6rem] whitespace-nowrap mb-1 sm:mb-2"
+            >
+              <span className="hero-gold">Rashini</span>
+              <motion.span
+                className="inline-block align-middle mx-0.5 sm:mx-3 text-[0.5em] text-[#1f4a32]"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                &amp;
+              </motion.span>
+              <span className="hero-gold">Rumesh</span>
+            </motion.h1>
+
+            {/* Invitation line */}
+            <motion.div {...rise(1.25)} className="mx-auto mt-2 sm:mt-3 mb-4 sm:mb-6 max-w-md font-serif italic text-[13px] sm:text-base leading-relaxed text-stone-600">
+              {guestName ? (
+                <>
+                  We cordially invite
+                  <br />
+                  <span className="not-italic inline-block font-script text-[1.7rem] sm:text-4xl text-[#1f4a32] my-0.5 sm:my-1">{guestName}</span>
+                  <br />
+                  to celebrate our special day with us.
+                </>
+              ) : (
+                <>
+                  Warmly request the honour of the presence of <br />
+                  <span className="not-italic font-cinzel text-xs sm:text-sm tracking-[0.2em] text-[#1f4a32]">Mr. &amp; Mrs. / Miss</span> <br />
+                  to celebrate the marriage of their loving children
+                </>
+              )}
+            </motion.div>
+
+            {/* Decorative Line */}
+            <motion.div {...rise(1.4)} className="flex justify-center mb-2 sm:mb-4" aria-hidden="true">
+              <svg viewBox="0 0 240 24" className="w-48 sm:w-64 h-5 sm:h-6">
+                <defs>
+                  <linearGradient id="heroRuleL" x1="0" x2="1">
+                    <stop offset="0" stopColor="#b8892d" stopOpacity="0" />
+                    <stop offset="1" stopColor="#b8892d" />
+                  </linearGradient>
+                  <linearGradient id="heroRuleR" x1="1" x2="0">
+                    <stop offset="0" stopColor="#b8892d" stopOpacity="0" />
+                    <stop offset="1" stopColor="#b8892d" />
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="12" x2="96" y2="12" stroke="url(#heroRuleL)" strokeWidth="1" />
+                <line x1="144" y1="12" x2="240" y2="12" stroke="url(#heroRuleR)" strokeWidth="1" />
+                <path d="M100 12 L106 8 L112 12 L106 16 Z M128 12 L134 8 L140 12 L134 16 Z" fill="#b8892d" opacity="0.7" />
+                <path
+                  d="M120 18s-6-3.9-6-7.8c0-2.2 1.6-3.7 3.5-3.7 1.1 0 2 .5 2.5 1.3.5-.8 1.4-1.3 2.5-1.3 1.9 0 3.5 1.5 3.5 3.7 0 3.9-6 7.8-6 7.8z"
+                  fill="#b8892d"
+                />
+              </svg>
+            </motion.div>
+
+            {/* Subtitle – date */}
+            <motion.div {...rise(1.55)} className="text-[#1f4a32]">
+              <p className="font-script text-[1.7rem] sm:text-4xl text-[#b8892d] leading-none mb-2 sm:mb-3">On</p>
+              <div className="flex items-center justify-center gap-3 sm:gap-5 [font-variant-numeric:lining-nums]">
+                <span className="w-24 sm:w-32 py-2 border-y border-[#b8892d]/50 font-cinzel text-[11px] sm:text-sm tracking-[0.3em] uppercase">
+                  Friday
+                </span>
+                <span className="hero-gold font-serif font-semibold text-5xl sm:text-7xl leading-none">15</span>
+                <span className="w-24 sm:w-32 py-1 border-y border-[#b8892d]/50 font-cinzel text-[11px] sm:text-sm tracking-[0.3em] uppercase leading-snug">
+                  January
+                  <br />
+                  2027
+                </span>
+              </div>
+            </motion.div>
           </div>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1 }}
-            className="text-base sm:text-xl md:text-2xl text-gray-700 font-serif max-w-2xl mx-auto leading-relaxed px-2 mb-10"
-          >
-            On <br />
-            <span className="text-[#4a5d23] font-bold">Friday, January 15 | 2027</span>
-          </motion.p>
-
-
-        </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.55))_drop-shadow(0_0_8px_rgba(31,74,50,0.45))]"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-[#7d8f4e]"
-          >
-            <div className="w-6 h-10 border-2 border-[#7d8f4e] rounded-full flex justify-center pt-2">
-              <div className="w-1 h-2 bg-[#7d8f4e] rounded-full" />
+          <span className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase whitespace-nowrap pl-[calc(1rem+0.35em)] pr-4 py-1.5 rounded-full bg-[#1f4a32]/55 backdrop-blur-sm border border-white/30">
+            Scroll Down
+          </span>
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center pt-2 bg-[#1f4a32]/45 backdrop-blur-sm">
+              <div className="w-1 h-2 bg-white rounded-full" />
             </div>
           </motion.div>
         </motion.div>
@@ -264,7 +268,7 @@ export default function App() {
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed font-serif">
                 <p>
                   We are getting married and would love to celebrate with you.
-                  A romantic evening filled with love, flowers, music, and the people who mean the most to us.
+                  A romantic day filled with love, flowers, music, and the people who mean the most to us.
                 </p>
                 <p>
                   Thank you for being part of our most beautiful chapter.
@@ -384,9 +388,6 @@ export default function App() {
             <h2 className="text-5xl font-serif text-[#4a5d23] mb-4 uppercase tracking-widest">
               Event Timeline
             </h2>
-            <p className="text-xl text-gray-600 font-serif lowercase italic">
-              [poruwa ceremony at 10.15 am · celebration 11.00 am - 4.00 pm]
-            </p>
           </motion.div>
 
           <EventTimeline />
@@ -413,7 +414,6 @@ export default function App() {
           <div className="grid gap-8 max-w-xl mx-auto">
             {[
               {
-                label: 'Poruwa 10:15 AM · Celebration 11:00 AM - 4:00 PM',
                 name: 'River Green Resort',
                 place: 'Panadura',
                 map: 'https://www.google.com/maps/search/?api=1&query=River+Green+Resort+Panadura',
@@ -449,9 +449,6 @@ export default function App() {
                       </div>
                     </motion.div>
                   </div>
-                  <p className="relative z-10 text-[#7d8f4e] font-serif text-xs tracking-widest uppercase mt-2">
-                    {venue.label}
-                  </p>
                   <p className="relative z-10 text-[#4a5d23] font-serif text-lg font-semibold tracking-widest uppercase">
                     {venue.name}
                   </p>
@@ -474,17 +471,6 @@ export default function App() {
               </motion.div>
             ))}
           </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 mt-10">
-            <a href="tel:0761634344" className="flex items-center gap-2 text-gray-600 font-serif hover:text-[#4a5d23]">
-              <Phone className="w-4 h-4 text-[#7d8f4e]" />
-              <span>RSVP: Rashini - 076 163 4344</span>
-            </a>
-            <a href="tel:0712005612" className="flex items-center gap-2 text-gray-600 font-serif hover:text-[#4a5d23]">
-              <Phone className="w-4 h-4 text-[#7d8f4e]" />
-              <span>RSVP: Rumesh - 071 200 5612</span>
-            </a>
-          </div>
         </div>
       </section>
 
@@ -500,11 +486,6 @@ export default function App() {
             <h2 className="text-5xl font-serif text-[#4a5d23] mb-4 uppercase tracking-widest">
               RSVP
             </h2>
-            <p className="text-xl text-gray-600 font-serif">
-              Rashini - <a href="tel:0761634344" className="text-[#4a5d23] hover:text-[#7d8f4e]">076 163 4344</a>
-              <span className="mx-3 text-[#7d8f4e]">|</span>
-              Rumesh - <a href="tel:0712005612" className="text-[#4a5d23] hover:text-[#7d8f4e]">071 200 5612</a>
-            </p>
           </motion.div>
 
           <RSVPForm />

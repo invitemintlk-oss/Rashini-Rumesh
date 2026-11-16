@@ -1,74 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
-
-/* ---------- Watercolour greenery branch (pure SVG) ---------- */
-const LEAF_COLORS = ["#4f8a3c", "#6aa84f", "#8cc06a", "#3f7a33", "#a6cf86", "#5c9a45"];
-
-function GreeneryBranch({
-  length = 260,
-  leaves = 14,
-  curve = 40,
-  seed = 1,
-  className,
-  style,
-}: {
-  length?: number;
-  leaves?: number;
-  curve?: number;
-  seed?: number;
-  className?: string;
-  style?: CSSProperties;
-}) {
-  const items = useMemo(() => {
-    let s = seed * 9301;
-    const rand = () => {
-      s = (s * 9301 + 49297) % 233280;
-      return s / 233280;
-    };
-    const out: { x: number; y: number; r: number; rot: number; c: string; o: number }[] = [];
-    for (let i = 0; i < leaves; i++) {
-      const t = (i + 1) / (leaves + 1);
-      const x = length * t;
-      const y = 2 * (1 - t) * t * curve;
-      const side = i % 2 === 0 ? -1 : 1;
-      const r = 8 + (1 - t) * 8 + rand() * 4;
-      out.push({
-        x,
-        y: y + side * (r * 0.9),
-        r,
-        rot: side * (30 + rand() * 25),
-        c: LEAF_COLORS[Math.floor(rand() * LEAF_COLORS.length)],
-        o: 0.6 + rand() * 0.35,
-      });
-    }
-    return out;
-  }, [length, leaves, curve, seed]);
-
-  const minY = Math.min(0, curve) - 30;
-  const h = Math.abs(curve) + 60;
-
-  return (
-    <svg viewBox={`-25 ${minY} ${length + 50} ${h}`} className={className} style={style} aria-hidden="true">
-      <path
-        d={`M0 0 Q ${length / 2} ${curve} ${length} 0`}
-        stroke="#5b6b3a"
-        strokeOpacity="0.6"
-        strokeWidth="1.4"
-        fill="none"
-      />
-      {items.map((l, i) => (
-        <g key={i} transform={`translate(${l.x} ${l.y}) rotate(${l.rot})`}>
-          {/* pointed leaf */}
-          <path
-            d={`M${-l.r * 1.5} 0 Q 0 ${-l.r * 0.85} ${l.r * 1.5} 0 Q 0 ${l.r * 0.85} ${-l.r * 1.5} 0 Z`}
-            fill={l.c}
-            opacity={l.o}
-          />
-          <path d={`M${-l.r * 1.3} 0 L ${l.r * 1.3} 0`} stroke="#ffffff" strokeOpacity="0.35" strokeWidth="0.8" />
-        </g>
-      ))}
-    </svg>
-  );
-}
+import { useEffect, useMemo, useState } from "react";
 
 /* ---------- Dried gold baby's-breath sprig (pure SVG) ---------- */
 function GoldSprig({ className }: { className?: string }) {
@@ -300,8 +230,7 @@ export function EnvelopeOpening({ onComplete, onMusicStart }: { onComplete: () =
         /* ----- Invitation card ----- */
         .eo-card {
           position: absolute; left: 28%; right: 3%; top: 2.5%; bottom: 2.5%;
-          background:
-            radial-gradient(ellipse at 50% 45%, #ffffff, #f8f7f1 75%);
+          background: #fbfbf8 url("/download%20(1).png") center / cover no-repeat;
           border-radius: 2px;
           overflow: hidden;
           container-type: inline-size;
@@ -314,12 +243,6 @@ export function EnvelopeOpening({ onComplete, onMusicStart }: { onComplete: () =
           42%  { transform: translateX(16%); }
           100% { transform: translateX(-18%) scale(1.04); box-shadow: 0 30px 60px -20px rgba(6,48,31,0.45), 0 8px 18px rgba(0,0,0,0.1); }
         }
-
-        .greenery { position: absolute; pointer-events: none; width: 58%; }
-        .greenery.g-tl { top: -3%; right: -16%; transform: rotate(152deg); }
-        .greenery.g-tl2 { top: -3.5%; right: 6%; transform: rotate(188deg); width: 38%; }
-        .greenery.g-br { bottom: -2%; right: -16%; transform: rotate(205deg); }
-        .greenery.g-br2 { bottom: -4%; right: 5%; transform: rotate(172deg); width: 38%; }
 
         .card-inner {
           position: relative; z-index: 1; height: 100%;
@@ -464,10 +387,6 @@ export function EnvelopeOpening({ onComplete, onMusicStart }: { onComplete: () =
           <div className="eo-back emerald" />
 
           <div className="eo-card">
-            <GreeneryBranch className="greenery g-tl" length={240} leaves={13} curve={26} seed={3} />
-            <GreeneryBranch className="greenery g-tl2" length={200} leaves={10} curve={-22} seed={8} />
-            <GreeneryBranch className="greenery g-br" length={240} leaves={13} curve={26} seed={5} />
-            <GreeneryBranch className="greenery g-br2" length={200} leaves={10} curve={-22} seed={11} />
             <CardContent />
           </div>
 

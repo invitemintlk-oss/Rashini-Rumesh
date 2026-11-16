@@ -21,7 +21,21 @@ export function AdminPage() {
 
   const copy = async (text: string, label: string) => {
     try {
-      await navigator.clipboard.writeText(text);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for non-HTTPS pages / older in-app browsers where the Clipboard API is unavailable
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (!ok) throw new Error('copy failed');
+      }
       toast.success(`${label} copied!`);
     } catch {
       toast.error('Could not copy – please copy manually');
@@ -39,7 +53,7 @@ export function AdminPage() {
           Invitation Links
         </h1>
         <p className="text-center text-gray-500 font-serif mb-10">
-          {WEDDING.groomName} &amp; {WEDDING.brideName}
+          {WEDDING.brideName} &amp; {WEDDING.groomName}
         </p>
 
         <form
